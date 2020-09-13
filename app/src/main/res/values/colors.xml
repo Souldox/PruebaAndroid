@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="TituloBonito">#8bc34a</color>
+    <color name="backgroundTitulo">#2195f2</color>
+    <color name="nombreArtista">#ccdb39</color>
+    <color name="backgroundArtista">#00bbd3</color>
+    <color name="backgroundInputs">#C1B4B4</color>
+    <color name="genero">#F4F1F0</color>
+    <color name="backgroundGenero">#fe5622</color>
+</resources>

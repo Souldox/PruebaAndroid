@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Prueba 1 Android</string>
+    <string name="titulo">Mis Conciertos</string>
+    <string name="nombre">Nombre del Artista</string>
+    <string name="genero">Genero :</string>
+    <string name="precio">Valor entrada</string>
+    <string name="calificaion">Calificacion</string>
+
+</resources>
