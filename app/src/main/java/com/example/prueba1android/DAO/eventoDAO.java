@@ -1,22 +1,46 @@
 package com.example.prueba1android.DAO;
 
-import android.content.Context;
-
 import com.example.prueba1android.DTO.eventoDTO;
+import com.example.prueba1android.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class eventoDAO extends eventoDTO {
+public class eventoDAO {
 
-    private Context context;
-    private ArrayList<eventoDTO> listItem;
 
-    public eventoDAO(String nota, String genero, String artista, String fecha, int precio, Context context, ArrayList<eventoDTO> listItem) {
-        super(nota, genero, artista, fecha, precio);
-        this.context = context;
-        this.listItem = listItem;
+
+
+    public static int Nota=0;
+    public static String Artista = null;
+    public static String Genero = null;
+    public static int Precio = 0;
+    public static String Fecha = null;
+    public static int rango =0;
+    public static List<eventoDTO> eventos = new ArrayList<>();
+    
+    public static void crearEvento(){
+
+
+        eventoDTO e = new eventoDTO();
+        e.setArtista(Artista);
+        e.setFecha(Fecha);
+        e.setGenero(Genero);
+        e.setPrecio(Precio);
+        e.setNota(Nota);
+        //condicion para seleccion de imagen
+        if (rango==3){
+            e.setImg(R.drawable.icono_genial);
+            if (rango==2){
+                e.setImg(R.drawable.icono_regular);
+                if (rango==1){
+                    e.setImg(R.drawable.icono_malo);
+                }
+            }
+        }
+        eventos.add(e);
+
+
     }
-
-
-
+    
 }

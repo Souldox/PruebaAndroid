@@ -2,24 +2,16 @@ package com.example.prueba1android.DTO;
 
 public class eventoDTO {
 
-    public String nota,genero,artista,fecha;
-    public int precio;
+    public String artista,genero,fecha;
+    public int precio,nota,img;
 
 
-    public eventoDTO(String nota, String genero, String artista, String fecha, int precio) {
-        this.nota = nota;
-        this.genero = genero;
+    public String getArtista() {
+        return artista;
+    }
+
+    public void setArtista(String artista) {
         this.artista = artista;
-        this.fecha = fecha;
-        this.precio = precio;
-    }
-
-    public String getNota() {
-        return nota;
-    }
-
-    public void setNota(String nota) {
-        this.nota = nota;
     }
 
     public String getGenero() {
@@ -28,14 +20,6 @@ public class eventoDTO {
 
     public void setGenero(String genero) {
         this.genero = genero;
-    }
-
-    public String getArtista() {
-        return artista;
-    }
-
-    public void setArtista(String artista) {
-        this.artista = artista;
     }
 
     public String getFecha() {
@@ -54,8 +38,19 @@ public class eventoDTO {
         this.precio = precio;
     }
 
-    @Override
-    public String toString() {
-        return artista + " " + genero + " "+precio+"$"+fecha+" "+nota+" ";
+    public int getNota() {
+        return nota;
+    }
+
+    public void setNota(int nota) {
+        this.nota = nota;
+    }
+
+    public int getImg() {
+        return img;
+    }
+
+    public void setImg(int img) {
+        this.img = img;
     }
 }

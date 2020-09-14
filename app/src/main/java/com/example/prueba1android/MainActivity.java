@@ -2,7 +2,7 @@ package com.example.prueba1android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -11,25 +11,40 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.prueba1android.DAO.eventoDAO;
+import com.example.prueba1android.DTO.eventoDTO;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     //Seccion Spinner Generos Musicales
     Spinner generosMusicales;
-
+    Spinner calificacion;
     //Seccion Calendario
     Button btnFecha;
-    EditText txtFecha;
+
     private int dia,mes,anio;
     private String genero,nota;
 
-    //Seccion Calificacion
+    Button btnAgregar;
+    EditText artistaTxt;
+    EditText txtFecha;
+    EditText valorEntrada;
+    ListView eventosLv;
 
-    Spinner calificacion;
+    private ArrayAdapter<eventoDTO> evAdapter;
+    private List<eventoDTO> eventos = new ArrayList<>();
+
+
+
+
 
 
     @Override
@@ -37,9 +52,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.eventosLv = findViewById(R.id.eventosLv);
+        this.evAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,eventos);
+        this.eventosLv.setAdapter(evAdapter);
+
         //fecha concierto
         this.btnFecha = findViewById(R.id.btnFecha);
-        txtFecha = (EditText) findViewById(R.id.txtFecha);
+        this.txtFecha = findViewById(R.id.txtFecha);
         btnFecha.setOnClickListener(this);
 
         //generos musicales
@@ -55,8 +74,70 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         calificacion.setAdapter(adapter);
         calificacion.setOnItemClickListener(this);
 
+        //Errores
 
 
+        //btnCrear
+        this.btnAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<String> errores = new ArrayList<>();
+                int Nota=0;
+                String Artista = null;
+                String Genero = null;
+                int Precio = 0;
+                String Fecha = null;
+                int rango =0;
+
+                try {
+                    Nota = Integer.parseInt(calificacion.toString());
+                    if (Nota <1.0 || Nota >3.0){
+                        rango =1;
+                    }
+                    if (Nota >=4 || Nota <=5){
+                        rango =2;
+                    }
+                    if (Nota >5 || Nota <=7){
+                        rango =3;
+                    }
+
+                } catch (NumberFormatException e) {
+                    errores.add("Debe ingresar una nota para clasificar el concierto");
+                }
+
+                try {
+                    Artista+=artistaTxt.getText();
+                    if (Artista == null){
+                        errores.add("Debe ingresar un nombre de Artista");
+                    }else{
+
+                    }
+                    Genero+= generosMusicales.getSelectedItem().toString();
+                    if (Genero ==null){
+                        errores.add("Debe ingresar el Genero Musical");
+                    }
+                    Fecha+=txtFecha.getText();
+                    if (Fecha == null){
+                        errores.add("Debe ingresar fecha del concierto");
+                    }
+                    Precio = Integer.parseInt(valorEntrada.getText().toString());
+                    if (Precio < 1 ){
+                        errores.add("Debe ingresar el valor de la entrada al concierto");
+                    }
+
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+
+                if (errores.isEmpty()){
+                    eventoDAO.crearEvento();
+                evAdapter.notifyDataSetChanged();
+
+            }else {
+                    mostrarErrores(errores);
+                }
+            }
+        });
 
     }
     @Override
@@ -95,10 +176,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-    //Fin spinner Generos Musicales
+    //Fin spinner Generos Musicales y Calificacion
 
+    public  void mostrarErrores(List<String> errores) {
+        String mensaje = "";
+        for (String e : errores) {
+            mensaje += "-" + e + "\n";
+        }
 
-
-
-
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
+        alertBuilder.setTitle("Error en el ingreso")
+                .setMessage(mensaje)
+                .setPositiveButton("Aceptar", null)
+                .create()
+                .show();
+    }
 }

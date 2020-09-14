@@ -26,6 +26,7 @@
 
 
         <EditText
+            android:id="@+id/artistaTxt"
             android:gravity="center_horizontal"
             android:textColor="@color/genero"
             android:textSize="@dimen/tamanioInputs"
@@ -163,12 +164,20 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="@dimen/marginTopBase"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
   <!--
         Listview personalizado
         Cambios testing app github 
   -->
+        <ListView
+            android:id="@+id/eventosLv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </ListView>
 
 
 
